@@ -1,0 +1,33 @@
+{
+  "name": "Module",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "semester": {
+      "type": "belongsTo",
+      "model": "Semester",
+      "foreignKey": ""
+    },
+    "field": {
+      "type": "belongsTo",
+      "model": "Field",
+      "foreignKey": ""
+    },
+    "subjects": {
+      "type": "hasMany",
+      "model": "Subject",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

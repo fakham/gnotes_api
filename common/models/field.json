@@ -1,0 +1,23 @@
+{
+  "name": "Field",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "modules": {
+      "type": "hasMany",
+      "model": "Module",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,32 @@
+{
+  "name": "Student",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "code_apogee": {
+      "type": "string"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "birth_date": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "scores": {
+      "type": "hasMany",
+      "model": "Score",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Score",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "score": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "subject": {
+      "type": "belongsTo",
+      "model": "Subject",
+      "foreignKey": ""
+    },
+    "student": {
+      "type": "belongsTo",
+      "model": "Student",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

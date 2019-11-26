@@ -1,0 +1,82 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "db"
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "db",
+    "public": false
+  },
+  "user": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Teacher": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Admin": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Responsable": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Student": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Subject": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Module": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Semester": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Field": {
+    "dataSource": "db",
+    "public": true
+  },
+  "SchoolYear": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Score": {
+    "dataSource": "db",
+    "public": true
+  }
+}

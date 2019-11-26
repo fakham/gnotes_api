@@ -1,0 +1,36 @@
+{
+  "name": "Subject",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "coeff": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "module": {
+      "type": "belongsTo",
+      "model": "Module",
+      "foreignKey": ""
+    },
+    "scores": {
+      "type": "hasMany",
+      "model": "Score",
+      "foreignKey": ""
+    },
+    "teacher": {
+      "type": "belongsTo",
+      "model": "Teacher",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

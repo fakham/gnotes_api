@@ -1,0 +1,23 @@
+{
+  "name": "SchoolYear",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "semesters": {
+      "type": "hasMany",
+      "model": "Semester",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

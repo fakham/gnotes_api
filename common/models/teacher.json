@@ -1,0 +1,19 @@
+{
+  "name": "Teacher",
+  "base": "user",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "subjects": {
+      "type": "hasMany",
+      "model": "Subject",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
