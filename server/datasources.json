@@ -9,5 +9,12 @@
     "user": "${DB_USER}",
     "useNewUrlParser": true,
     "connector": "mongodb"
+  },
+  "assets": {
+    "name": "assets",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "./assets",
+    "nameConflict": "makeUnique"
   }
 }

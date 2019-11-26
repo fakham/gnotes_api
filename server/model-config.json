@@ -78,5 +78,9 @@
   "Score": {
     "dataSource": "db",
     "public": true
+  },
+  "Documents": {
+    "dataSource": "assets",
+    "public": true
   }
 }
