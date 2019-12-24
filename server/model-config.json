@@ -82,5 +82,9 @@
   "Documents": {
     "dataSource": "assets",
     "public": true
+  },
+  "Excel": {
+    "dataSource": "db",
+    "public": true
   }
 }

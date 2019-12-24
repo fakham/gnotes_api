@@ -1,0 +1,23 @@
+{
+  "name": "Excel",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "teacher": {
+      "type": "belongsTo",
+      "model": "Teacher",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
