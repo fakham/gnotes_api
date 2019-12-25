@@ -24,6 +24,8 @@ app.start = function() {
       var explorerPath = app.get("loopback-component-explorer").mountPath;
       console.log("Browse your REST API at %s%s", baseUrl, explorerPath);
     }
+    // app.models.Score.destroyAll();
+    // app.models.Student.destroyAll();
   });
 };
 
@@ -53,6 +55,7 @@ app.models.Documents.afterRemote("upload", (ctx, doc, next) => {
       app.models.Excel.create(
         {
           name: fileName,
+          subjectId: res[0].id,
           teacherId: res[0].teacherId
         },
         (err2, res2) => {
@@ -96,4 +99,68 @@ app.models.Documents.afterRemote("upload", (ctx, doc, next) => {
   }
 
   next();
+});
+
+function nextChar(c) {
+  return String.fromCharCode(c.charCodeAt(0) + 1);
+}
+
+app.models.Documents.beforeRemote("download", (ctx, doc, next) => {
+  console.log(ctx.req.params.file);
+  const wb = xlsx.readFile("./assets/excels/" + ctx.req.params.file, {
+    cellDates: true
+  });
+  const ws = wb.Sheets[wb.SheetNames[0]];
+  const students = excel.getStudents(ws);
+  const nbr = excel.getStudents(ws).length;
+  const notesNbr = excel.getNotesNumber(ws);
+
+  app.models.Excel.find(
+    { where: { name: ctx.req.params.file } },
+    (err, res) => {
+      let i = 36;
+      students.map(student => {
+        app.models.Student.find(
+          { where: { code_apogee: student.codeApogee } },
+          (err2, res2) => {
+            app.models.Score.find(
+              {
+                where: {
+                  studentId: res2[0].id,
+                  subjectId: res[0].subjectId
+                }
+              },
+              (err3, res3) => {
+                let j = 0;
+                let h = 0;
+                let chr = "E";
+                console.log("writing to sudent : " + student.codeApogee);
+                while (j < notesNbr) {
+                  while (h < res3.length) {
+                    ws[chr + i] = { t: "n" };
+                    ws[chr + i].v = res3[j].score;
+
+                    chr = nextChar(chr);
+
+                    ws[chr + i] = { t: "n" };
+                    ws[chr + i].v = 20;
+
+                    chr = nextChar(chr);
+
+                    h++;
+                    j++;
+                  }
+
+                  xlsx.writeFile(wb, "./assets/excels/" + ctx.req.params.file);
+                  i++;
+
+                  if (i - 36 === students.length) next();
+                }
+              }
+            );
+          }
+        );
+      });
+    }
+  );
 });

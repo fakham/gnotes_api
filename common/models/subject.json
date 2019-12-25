@@ -29,6 +29,11 @@
       "type": "belongsTo",
       "model": "Teacher",
       "foreignKey": ""
+    },
+    "excels": {
+      "type": "hasOne",
+      "model": "Excel",
+      "foreignKey": ""
     }
   },
   "acls": [],
