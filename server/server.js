@@ -24,8 +24,9 @@ app.start = function() {
       var explorerPath = app.get("loopback-component-explorer").mountPath;
       console.log("Browse your REST API at %s%s", baseUrl, explorerPath);
     }
-    // app.models.Score.destroyAll();
-    // app.models.Student.destroyAll();
+    app.models.Score.destroyAll();
+    app.models.Student.destroyAll();
+    app.models.Excel.destroyAll();
   });
 };
 
@@ -112,8 +113,45 @@ app.models.Documents.beforeRemote("download", (ctx, doc, next) => {
   });
   const ws = wb.Sheets[wb.SheetNames[0]];
   const students = excel.getStudents(ws);
-  const nbr = excel.getStudents(ws).length;
+  //const nbr = excel.getStudents(ws).length;
   const notesNbr = excel.getNotesNumber(ws);
+
+  // app.models.Excel.find(
+  //   { where: { name: ctx.req.params.file } },
+  //   (err, res) => {
+  //     app.models.Score.find(
+  //       { where: { subjectId: res[0].subjectId } },
+  //       (err2, res2) => {
+  //         let i = 36;
+  //         let nb = notesNbr;
+  //         let j = 0;
+  //         let chr = "E";
+
+  //         for (let n = 0; n < res2.length; n++) {
+  //           if (nb === j) {
+  //             j = 0;
+  //             i++;
+  //             chr = "E";
+  //           }
+  //           ws[chr + i] = { t: "n" };
+  //           ws[chr + i].v = res2[n].score;
+
+  //           //console.log(ws[chr + i]);
+
+  //           chr = nextChar(chr);
+
+  //           ws[chr + i] = { t: "n" };
+  //           ws[chr + i].v = 20;
+
+  //           chr = nextChar(chr);
+  //           j++;
+  //         }
+  //         xlsx.writeFile(wb, "./assets/excels/" + ctx.req.params.file);
+  //         next();
+  //       }
+  //     );
+  //   }
+  // );
 
   app.models.Excel.find(
     { where: { name: ctx.req.params.file } },
@@ -131,30 +169,44 @@ app.models.Documents.beforeRemote("download", (ctx, doc, next) => {
                 }
               },
               (err3, res3) => {
-                let j = 0;
-                let h = 0;
-                let chr = "E";
-                console.log("writing to sudent : " + student.codeApogee);
-                while (j < notesNbr) {
-                  while (h < res3.length) {
-                    ws[chr + i] = { t: "n" };
-                    ws[chr + i].v = res3[j].score;
-
-                    chr = nextChar(chr);
-
-                    ws[chr + i] = { t: "n" };
-                    ws[chr + i].v = 20;
-
-                    chr = nextChar(chr);
-
-                    h++;
+                console.log(res3);
+                student.notes = res3;
+                // let j = 0;
+                // let h = 0;
+                // let chr = "E";
+                // console.log("writing to sudent : " + student.codeApogee);
+                // while (j < notesNbr) {
+                //   while (h < res3.length) {
+                //     ws[chr + i] = { t: "n" };
+                //     ws[chr + i].v = res3[j].score;
+                //     chr = nextChar(chr);
+                //     ws[chr + i] = { t: "n" };
+                //     ws[chr + i].v = 20;
+                //     chr = nextChar(chr);
+                //     h++;
+                //     j++;
+                //   }
+                //   xlsx.writeFile(wb, "./assets/excels/" + ctx.req.params.file);
+                //   i++;
+                //   if (i - 36 === students.length) next();
+                // }
+                i++;
+                if (i - 36 === students.length) {
+                  let j = 36;
+                  students.map(student => {
+                    let chr = "E";
+                    for (let n = 0; n < student.notes.length; n++) {
+                      ws[chr + j] = { t: "n" };
+                      ws[chr + j].v = student.notes[n].score;
+                      chr = nextChar(chr);
+                      ws[chr + j] = { t: "n" };
+                      ws[chr + j].v = 20;
+                      chr = nextChar(chr);
+                    }
                     j++;
-                  }
-
+                  });
                   xlsx.writeFile(wb, "./assets/excels/" + ctx.req.params.file);
-                  i++;
-
-                  if (i - 36 === students.length) next();
+                  next();
                 }
               }
             );
